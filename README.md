@@ -29,5 +29,11 @@
 4. Webhooks from banks to transfer in money
 
 ## Architecture
+#### Complete App Flow
 ![image](https://github.com/user-attachments/assets/b35ea29d-99e8-413c-9b69-a09126482466)
+
+#### Close view of Adding money to wallet
+![diagram-export-10-26-2024-5_33_13-PM](https://github.com/user-attachments/assets/3b5731f4-1ecc-4f28-92cc-a9f35ea88a21)
+
+
 

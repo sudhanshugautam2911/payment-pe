@@ -1,4 +1,3 @@
-
 ## Getting Started
 
 It is going to be an express server.

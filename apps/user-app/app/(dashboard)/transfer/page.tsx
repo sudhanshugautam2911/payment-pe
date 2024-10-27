@@ -12,6 +12,7 @@ async function getBalance() {
             userId: Number(session?.user?.id)
         }
     });
+    // console.log("Balance in db ", balance);
     return {
         amount: balance?.amount || 0,
         locked: balance?.locked || 0
@@ -26,7 +27,6 @@ async function getOnRampTransactions() {
             userId: Number(session?.user?.id)
         }
     });
-    console.log(txns);
     return txns.map(t => ({
         time: t.startTime,
         amount: t.amount,

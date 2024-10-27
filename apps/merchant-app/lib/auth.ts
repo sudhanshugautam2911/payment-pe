@@ -18,7 +18,6 @@ export const authOptions = {
           provider: "google" | "github"
         }
       }) {
-        console.log("hi signin")
         if (!user || !user.email) {
           return false;
         }

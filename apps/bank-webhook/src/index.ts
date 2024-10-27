@@ -7,7 +7,8 @@ app.use(express.json())
 // This route will hit by hdfc to tell if transaction was successfull
 app.post("/hdfcWebhook", async (req, res) => {
     // TODO: Add zod validation here?
-    //T ODO: HDFC bank should ideally send us a secret so we know this is sent by them
+    // TODO: HDFC bank should ideally send us a secret so we know this is sent by them
+    // TODO: Only if it is processing we should proceed
     const paymentInformation: {
         token: string;
         userId: string;

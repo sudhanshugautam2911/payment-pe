@@ -28,7 +28,6 @@ async function p2pTransferDetails() {
         },
 
     });
-    console.log(txns);
     return txns.map((t) => ({
         time: t.timeStamp,
         amount: t.amount,

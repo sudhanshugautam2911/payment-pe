@@ -23,7 +23,7 @@ export const P2PTransactions = ({
 
     return <Card title="P2P Transactions">
         <div className="pt-2 divider-line">
-            {transactions.map(t => <div className="py-3 flex justify-between">
+            {transactions.map((t,index) => <div key={index} className="py-3 flex justify-between">
                 <div className="flex-1"> {/* Allow left item to grow */}
                     <div className="text-sm">
                         {t.transactionType}

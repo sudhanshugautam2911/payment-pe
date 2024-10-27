@@ -1,6 +1,4 @@
-import prisma from "@repo/db/client"
 import { Card } from "@repo/ui/card"
-import { useState } from "react"
 
 export const P2PTransactions = ({
     transactions

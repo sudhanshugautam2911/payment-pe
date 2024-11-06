@@ -5,7 +5,19 @@ import { OnRampTransactions } from "../../../components/OnRampTransactions";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../lib/auth";
 
-async function getBalance() {
+interface Balance {
+    amount: number;
+    locked: number;
+}
+
+interface OnRampTransaction {
+    time: Date;
+    amount: number;
+    status: string;
+    provider: string;
+}
+
+async function getBalance(): Promise<Balance> {
     const session = await getServerSession(authOptions);
     const balance = await prisma.balance.findFirst({
         where: {
@@ -19,7 +31,7 @@ async function getBalance() {
     }
 }
 
-async function getOnRampTransactions() {
+async function getOnRampTransactions(): Promise<OnRampTransaction[]> {
     const session = await getServerSession(authOptions);
 
     const txns = await prisma.onRampTransaction.findMany({
@@ -35,7 +47,7 @@ async function getOnRampTransactions() {
     }))
 }
 
-export default async function() {
+export default async function () {
     const balance = await getBalance();
     const transactions = await getOnRampTransactions();
 
@@ -45,7 +57,7 @@ export default async function() {
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 p-4">
             <div>
-                <AddMoney /> 
+                <AddMoney />
             </div>
             <div>
                 <BalanceCard amount={balance.amount} locked={balance.locked} />

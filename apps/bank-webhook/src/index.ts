@@ -12,39 +12,52 @@ app.post("/hdfcWebhook", async (req, res) => {
     const paymentInformation: {
         token: string;
         userId: string;
-        amount: string
+        amount: string;
+        status: string;
     } = {
         token: req.body.token,
         userId: req.body.user_identifier,
-        amount: req.body.amount
+        amount: req.body.amount,
+        status: req.body.status
     };
 
     try {
-        await db.$transaction([
-            db.balance.updateMany({
-                where: {
-                    userId: Number(paymentInformation.userId)
-                },
-                data: {
-                    amount: {
-                        increment: Number(paymentInformation.amount)
+        if (status == 'success') {
+            await db.$transaction([
+                db.balance.updateMany({
+                    where: {
+                        userId: Number(paymentInformation.userId)
+                    },
+                    data: {
+                        amount: {
+                            increment: Number(paymentInformation.amount)
+                        }
                     }
-                }
-            }),
+                }),
+                db.onRampTransaction.updateMany({
+                    where: {
+                        token: paymentInformation.token
+                    },
+                    data: {
+                        status: "Success",
+                    }
+                })
+            ]);
+        } else {
             db.onRampTransaction.updateMany({
                 where: {
                     token: paymentInformation.token
-                }, 
+                },
                 data: {
-                    status: "Success",
+                    status: "Failure",
                 }
             })
-        ]);
+        }
 
         res.json({
             message: "Captured"
         })
-    } catch(e) {
+    } catch (e) {
         console.error(e);
         res.status(411).json({
             message: "Error while processing webhook"

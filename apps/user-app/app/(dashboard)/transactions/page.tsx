@@ -3,10 +3,20 @@ import { authOptions } from "../../lib/auth";
 import prisma from "@repo/db/client";
 import { P2PTransactions } from "../../../components/P2PTransactions";
 
+interface P2PTransfer {
+    timeStamp: Date;
+    amount: number;
+    fromUserId: number;
+    toUserId: number;
+    toUser: {
+        number: string;
+    };
+}
+
 async function p2pTransferDetails() {
     const session = await getServerSession(authOptions);
 
-    const txns = await prisma.p2pTransfer.findMany({
+    const txns: P2PTransfer[] = await prisma.p2pTransfer.findMany({
         where: {
             OR: [
                 {

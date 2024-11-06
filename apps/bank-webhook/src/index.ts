@@ -4,6 +4,11 @@ const app = express();
 
 app.use(express.json())
 
+// Route to verify server is working
+app.get("/", (req, res) => {
+    res.send("Server is up and running!");
+});
+
 // This route will hit by hdfc to tell if transaction was successfull
 app.post("/hdfcWebhook", async (req, res) => {
     // TODO: Add zod validation here?
@@ -65,5 +70,7 @@ app.post("/hdfcWebhook", async (req, res) => {
     }
 
 })
+
+
 
 app.listen(3003);

@@ -15,9 +15,17 @@ const SUPPORTED_BANKS = [{
 }];
 
 export const AddMoney = () => {
-    const [redirectUrl, setRedirectUrl] = useState(SUPPORTED_BANKS[0]?.redirectUrl);
+    // const [redirectUrl, setRedirectUrl] = useState(SUPPORTED_BANKS[0]?.redirectUrl);
+    const [redirectUrl, setRedirectUrl] = useState("http://localhost:3002/pay-money");
     const [provider, setProvider] = useState(SUPPORTED_BANKS[0]?.name || "");
     const [value, setValue] = useState(0)
+
+    const handleOnClick = async () => {
+        const res = await createOnRampTransaction(provider, value);
+        
+        window.location.href = `${redirectUrl}?token=${res.token}`;
+    };
+    
     return <Card title="Add Money">
         <div className="w-full">
             <TextInput label={"Amount"} placeholder={"Amount"} onChange={(val) => {
@@ -34,10 +42,7 @@ export const AddMoney = () => {
                 value: x.name
             }))} />
             <div className="flex justify-center pt-4">
-                <Button onClick={async() => {
-                    await createOnRampTransaction(provider, value)
-                    window.location.href = redirectUrl || "";
-                }}>
+                <Button onClick={handleOnClick}>
                     Add Money
                 </Button>
             </div>

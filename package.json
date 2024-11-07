@@ -1,5 +1,5 @@
 {
-  "name": "week-18",
+  "name": "payment-pe",
   "private": true,
   "scripts": {
     "build": "turbo build",

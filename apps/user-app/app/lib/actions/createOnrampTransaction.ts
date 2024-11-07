@@ -3,6 +3,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth";
 import db from '@repo/db/client'
+import jwt from 'jsonwebtoken'
 
 export async function createOnRampTransaction(provider: string, amount: number) {
 
@@ -16,7 +17,11 @@ export async function createOnRampTransaction(provider: string, amount: number) 
     }
 
     // this token will be sent from hdfc - for now just hardcoding it
-    const token = (Math.random()*1000).toString();
+    const payload = {
+        userId: session.user.id,
+        amount: amount
+    }
+    const token = jwt.sign(payload, process.env.JWT_SECRET as string);
 
     await db.onRampTransaction.create({
         data: {
@@ -30,7 +35,8 @@ export async function createOnRampTransaction(provider: string, amount: number) 
     });
     
     return {
-        message: "Done"
+        message: "Done",
+        token: token
     }
 }
 

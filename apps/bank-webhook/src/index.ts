@@ -18,16 +18,16 @@ app.post("/hdfcWebhook", async (req, res) => {
         token: string;
         userId: string;
         amount: string;
-        status: string;
+        paymentStatus: string;
     } = {
         token: req.body.token,
         userId: req.body.user_identifier,
         amount: req.body.amount,
-        status: req.body.status
+        paymentStatus: req.body.paymentStatus
     };
 
     try {
-        if (status == 'success') {
+        if (paymentInformation.paymentStatus == 'success') {
             await db.$transaction([
                 db.balance.updateMany({
                     where: {

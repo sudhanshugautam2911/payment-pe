@@ -18,9 +18,12 @@ export const OnRampTransactions = ({
             </div>
         </Card>
     }
+
+    const sortedTransactions = [...transactions].sort((a,b) => b.time.getTime() - a.time.getTime() )
+    
     return <Card title="Recent Transactions">
         <div className="pt-2 divider-line">
-            {transactions.map((t,index) => <div key={index} className="flex justify-between">
+            {sortedTransactions.map((t,index) => <div key={index} className="flex justify-between">
                 <div>
                     <div className="text-sm">
                         Received INR

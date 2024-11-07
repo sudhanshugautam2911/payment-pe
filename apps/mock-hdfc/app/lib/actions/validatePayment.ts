@@ -18,7 +18,7 @@ export async function validatePayment(token: any) {
         const payload = {
             token: token,
             user_identifier: decodedData.userId,
-            amount: decodedData.amount*100,
+            amount: decodedData.amount,
             paymentStatus: 'success'
         }
         

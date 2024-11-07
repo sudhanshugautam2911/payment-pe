@@ -19,7 +19,7 @@ export async function createOnRampTransaction(provider: string, amount: number) 
     // this token will be sent from hdfc - for now just hardcoding it
     const payload = {
         userId: session.user.id,
-        amount: amount
+        amount: amount*100
     }
     const token = jwt.sign(payload, process.env.JWT_SECRET as string);
 

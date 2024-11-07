@@ -14,6 +14,7 @@ app.post("/hdfcWebhook", async (req, res) => {
     // TODO: Add zod validation here?
     // TODO: HDFC bank should ideally send us a secret so we know this is sent by them
     // TODO: Only if it is processing we should proceed
+    
     const paymentInformation: {
         token: string;
         userId: string;
@@ -27,7 +28,7 @@ app.post("/hdfcWebhook", async (req, res) => {
     };
 
     try {
-        if (paymentInformation.paymentStatus == 'success') {
+        if (paymentInformation.paymentStatus === 'success') {
             await db.$transaction([
                 db.balance.updateMany({
                     where: {
@@ -49,7 +50,7 @@ app.post("/hdfcWebhook", async (req, res) => {
                 })
             ]);
         } else {
-            db.onRampTransaction.updateMany({
+            await db.onRampTransaction.updateMany({
                 where: {
                     token: paymentInformation.token
                 },

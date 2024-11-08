@@ -42,4 +42,5 @@ jobs:
             sudo docker run -d --name web-app -p 3005:3000 \
               -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
               -e NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }} \
+              -e JWT_SECRET=${{ secrets.JWT_SECRET }} \
               sudhnashu2911/payment-pe:latest

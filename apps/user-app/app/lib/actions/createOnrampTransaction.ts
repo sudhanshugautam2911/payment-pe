@@ -21,7 +21,7 @@ export async function createOnRampTransaction(provider: string, amount: number) 
         userId: session.user.id,
         amount: amount*100
     }
-    const token = jwt.sign(payload, process.env.JWT_SECRET as string);
+    const token = jwt.sign(payload, process.env.JWT_SECRET || "");
 
     await db.onRampTransaction.create({
         data: {

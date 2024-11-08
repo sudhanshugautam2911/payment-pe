@@ -29,7 +29,9 @@ export async function p2pTransfer(to: string, amount: number) {
     }
     try {
         await db.$transaction(async (tx) => {
-            // TODO: multiple req at the same time can cause inconsistency - Use row locking in db 
+            // DONE: multiple req at the same time can cause inconsistency - Use row locking in db 
+            await tx.$queryRaw`SELECT * FROM "Balance" WHERE "userId" = ${Number(from)} FOR UPDATE`;
+
             const fromBalance = await db.balance.findUnique({
                 where: {
                     userId: Number(from)

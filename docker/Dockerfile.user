@@ -14,4 +14,4 @@ RUN npm run db:generate
 # can you filter down the build down to one app?
 RUN npm run build
 
-CMD ["npm", "run", "start-user-app"]
+CMD ["concurrently", "\"npm run start-user-app\"", "\"npm run start-bank-webhook\""]

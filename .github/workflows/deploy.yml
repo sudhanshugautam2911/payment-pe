@@ -26,9 +26,6 @@ jobs:
           push: true
           tags: sudhnashu2911/payment-pe:latest
 
-      - name: Verify Pushed Image
-        run: docker pull sudhnashu2911/payment-pe:latest
-
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
         with:

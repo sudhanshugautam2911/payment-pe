@@ -6,7 +6,9 @@
 3. Turborepo
 4. Postgres Database
 5. Prisma ORM
-6. Tailwind
+6. Docker
+7. CI/CD
+8. Tailwind
  
 ## Features
 
